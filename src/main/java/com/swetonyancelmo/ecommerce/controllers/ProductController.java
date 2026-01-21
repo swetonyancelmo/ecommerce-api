@@ -9,11 +9,13 @@ import com.swetonyancelmo.ecommerce.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/products")
 @Tag(name = "Sessão de Produtos", description = "Endpoints de CRUD de Produtos")
+@SecurityRequirement(name = "bearerAuth")
 public class ProductController {
 
     @Autowired
@@ -31,6 +34,7 @@ public class ProductController {
     private ProductMapper mapper;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Retorna lista de Produtos", description = "Retorna todos os Produtos cadastrados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados"),
@@ -47,6 +51,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Retorna um Produto por ID", description = "Retorna um Produto por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto encontrado"),
@@ -59,6 +64,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Cadastra um Produto", description = "Cadastra um novo Produto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Produto cadastrado"),
@@ -70,6 +76,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Atualiza um Produto", description = "Atualiza um Produto por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto atualizado"),
@@ -82,6 +89,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Deleta um Produto", description = "Deleta um Produto por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Produto deletado"),

@@ -1,6 +1,5 @@
 package com.swetonyancelmo.ecommerce.config;
 
-import com.swetonyancelmo.ecommerce.models.User;
 import com.swetonyancelmo.ecommerce.security.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

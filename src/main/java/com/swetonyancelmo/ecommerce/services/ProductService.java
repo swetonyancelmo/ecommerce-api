@@ -39,8 +39,8 @@ public class ProductService {
     public Product update(Long id, ProductUpdateDTO dto) {
         Product productFound = findById(id);
 
-        if(dto.nameProduct() != null && dto.nameProduct().isBlank()) productFound.setNameProduct(dto.nameProduct());
-        if(dto.description() != null && dto.description().isBlank()) productFound.setDescription(dto.description());
+        if(dto.nameProduct() != null && !dto.nameProduct().isBlank()) productFound.setNameProduct(dto.nameProduct());
+        if(dto.description() != null && !dto.description().isBlank()) productFound.setDescription(dto.description());
         if(dto.price() != null) productFound.setPrice(dto.price());
         if(dto.quantity() != null) productFound.setQuantity(dto.quantity());
 
