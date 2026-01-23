@@ -16,9 +16,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("API Ecommerce - Para Lojas de Comésticos")
+                        .title("API Ecommerce - For Cosmetics Stores")
                         .version("1.0")
-                        .description("API REST para gerenciamento de loja de Comésticos")
+                        .description("API RESTful for managing a cosmetics store")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()

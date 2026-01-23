@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
-@Tag(name = "Sessão de Produtos", description = "Endpoints de CRUD de Produtos")
+@Tag(name = "Product", description = "Product management endpoints")
 @SecurityRequirement(name = "bearerAuth")
 public class ProductController {
 
@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @Operation(summary = "Retorna lista de Produtos", description = "Retorna todos os Produtos cadastrados")
+    @Operation(summary = "Get all products")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados"),
             @ApiResponse(responseCode = "200", description = "Nenhum produto cadastrado"),
@@ -52,7 +52,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @Operation(summary = "Retorna um Produto por ID", description = "Retorna um Produto por ID")
+    @Operation(summary = "Get product by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto encontrado"),
             @ApiResponse(responseCode = "404", description = "Produto não encontrado"),
@@ -65,7 +65,7 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @Operation(summary = "Cadastra um Produto", description = "Cadastra um novo Produto")
+    @Operation(summary = "Create a new product")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Produto cadastrado"),
             @ApiResponse(responseCode = "400", description = "Erro ao cadastrar produto")
@@ -77,7 +77,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @Operation(summary = "Atualiza um Produto", description = "Atualiza um Produto por ID")
+    @Operation(summary = "Update a product")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto atualizado"),
             @ApiResponse(responseCode = "404", description = "Produto não encontrado"),
@@ -90,7 +90,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @Operation(summary = "Deleta um Produto", description = "Deleta um Produto por ID")
+    @Operation(summary = "Delete a product")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Produto deletado"),
             @ApiResponse(responseCode = "404", description = "Produto não encontrado"),

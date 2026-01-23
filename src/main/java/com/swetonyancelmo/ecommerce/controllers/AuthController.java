@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Sessão de Login/Registro")
+@Tag(name = "Authentication")
 public class AuthController {
 
     @Autowired
@@ -39,13 +39,13 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    @Operation(summary = "Login", description = "Realiza o Login de um usuário")
+    @Operation(summary = "User login")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuário logado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro ao logar o usuário")
     })
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO dto) {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var user = (User) auth.getPrincipal();
@@ -55,19 +55,19 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "Register", description = "Realiza o registro de um novo usuário")
+    @Operation(summary = "Register a new user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Erro ao criar o usuário")
     })
     public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO dto){
-        if(this.userRepository.findByUsername(dto.username()) != null) {
-            return ResponseEntity.badRequest().body("Username já está em uso");
+        if(this.userRepository.findByEmail(dto.email()) != null) {
+            return ResponseEntity.badRequest().body("E-mail já está em uso, tente novamente.");
         }
 
         String encryptedPassword = passwordEncoder.encode(dto.password());
 
-        User newUser = new User(null, dto.username(), encryptedPassword, dto.role());
+        User newUser = new User(null, dto.username(), dto.email(), encryptedPassword, dto.role());
         this.userRepository.save(newUser);
 
         return ResponseEntity.ok().body("Usuário registrado com sucesso.");

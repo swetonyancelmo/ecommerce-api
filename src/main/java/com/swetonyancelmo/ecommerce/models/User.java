@@ -2,6 +2,7 @@ package com.swetonyancelmo.ecommerce.models;
 
 import com.swetonyancelmo.ecommerce.models.enums.UserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,9 +27,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @Size(min = 3, max = 80)
     private String username;
+
+    @Column(nullable = false, unique = true)
+    @Email(message = "Formato do e-mail inválido.")
+    private String email;
     private String password;
 
     @Enumerated(EnumType.STRING)
