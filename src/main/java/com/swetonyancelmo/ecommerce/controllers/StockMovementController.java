@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/stock-movements")
-@Tag(name = "Stock movement endpoints")
+@Tag(name = "Stock Movement", description = "Stock Movements management endpoints")
 public class StockMovementController {
 
     @Autowired
